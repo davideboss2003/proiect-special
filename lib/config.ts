@@ -7,5 +7,5 @@ export const NOTIFY = {
 
   // Email prin formsubmit.co. Scrie aici adresa ta, de ex. "nume@gmail.com".
   // La primul mesaj primesti un mail de activare pe care trebuie sa dai click o singura data.
-  email: "",
+  email: "davideboss789@gmail.com",
 }
