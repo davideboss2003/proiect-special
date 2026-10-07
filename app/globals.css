@@ -1,0 +1,184 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #f7f4ec;
+  --foreground: #14263f;
+  --card: #fffdf8;
+  --card-foreground: #14263f;
+  --primary: #1f4e8c;
+  --primary-foreground: #ffffff;
+  --secondary: #e6eef8;
+  --secondary-foreground: #1b3558;
+  --muted: #eef1f4;
+  --muted-foreground: #5b6b80;
+  --accent: #f5b72f;
+  --accent-foreground: #3a2a00;
+  --rose: #e0607e;
+  --blueprint: #123a6b;
+  --blueprint-deep: #081a33;
+  --border: #cfd9e6;
+  --ring: #1f4e8c;
+  --radius: 1rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-outfit), sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+  --font-hand: var(--font-patrick), cursive;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-rose: var(--rose);
+  --color-blueprint: var(--blueprint);
+  --color-blueprint-deep: var(--blueprint-deep);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hartie milimetrica */
+.bg-grid-paper {
+  background-image:
+    linear-gradient(rgba(31, 78, 140, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 78, 140, 0.13) 1px, transparent 1px),
+    linear-gradient(rgba(31, 78, 140, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 78, 140, 0.06) 1px, transparent 1px);
+  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+}
+
+/* Plansa albastra (blueprint) */
+.bg-blueprint {
+  background-color: var(--blueprint);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+}
+
+@keyframes tool-float {
+  0%, 100% {
+    transform: translateY(0) rotate(var(--tilt, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--tilt, 0deg) + 4deg));
+  }
+}
+
+.animate-tool-float {
+  animation: tool-float 6s ease-in-out infinite;
+}
+
+/* Liniile se deseneaza singure, ca trase cu creionul */
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fill-in {
+  to {
+    fill-opacity: 1;
+    opacity: 1;
+  }
+}
+
+.draw > * {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-line 1.1s ease-out forwards;
+}
+
+.draw > .fill-late {
+  fill-opacity: 0;
+  animation: draw-line 1.1s ease-out forwards, fill-in 0.6s ease-out 0.9s forwards;
+}
+
+.draw > .fade-late {
+  stroke-dasharray: none;
+  opacity: 0;
+  animation: fill-in 0.6s ease-out 0.9s forwards;
+}
+
+/* Card flip */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Confetti */
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(420px) rotate(720deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti 2.2s ease-out forwards;
+}
+
+/* Stampila "APROBAT" */
+@keyframes stamp-in {
+  0% {
+    transform: rotate(-12deg) scale(3);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(-12deg) scale(0.92);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-12deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-stamp {
+  animation: stamp-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .draw > *,
+  .draw > .fill-late,
+  .draw > .fade-late,
+  .animate-tool-float,
+  .animate-stamp {
+    animation: none;
+    stroke-dashoffset: 0;
+    fill-opacity: 1;
+    opacity: 1;
+  }
+  .animate-stamp {
+    transform: rotate(-12deg);
+  }
+}

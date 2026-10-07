@@ -1,0 +1,49 @@
+=== INVITATIE "PROIECT SPECIAL" ===
+
+--- 1) NOTIFICAREA CAND APASA "APROB PROIECTUL" ---
+
+Setarile sunt in lib/config.ts.
+
+a) Push pe telefon (merge deja, fara cont):
+   - instaleaza aplicatia "ntfy" (Android / iOS)
+   - "+" -> Subscribe to topic -> scrie numele din ntfyTopic (lib/config.ts)
+   - fa abonarea INAINTE sa ii trimiti linkul
+
+b) Email (optional):
+   - scrie adresa ta la "email" in lib/config.ts
+   - apasa o data tu pe "Aprob proiectul"; formsubmit.co iti trimite un mail
+     de activare, dai click pe el si de atunci primesti mail la fiecare DA
+
+Dupa ce testezi tu butonul, stampila ramane salvata doar in browserul tau.
+Pe telefonul ei pagina porneste de la zero.
+
+--- 2) TEST LOCAL (ai nevoie de Node 20 sau mai nou) ---
+
+npm install
+npm run dev
+Deschide: http://localhost:3000/proiect-special
+
+--- 3) DEPLOY PE GITHUB PAGES ---
+
+1) Creeaza repo pe GitHub (Public, nume: proiect-special)
+   Daca alegi alt nume, schimba-l si in next.config.mjs (const repo).
+
+2) In terminal, in folderul proiectului:
+
+git init
+git add .
+git commit -m "Invitatie gata"
+git branch -M main
+git remote add origin https://github.com/USERNAME/proiect-special.git
+git push -u origin main
+
+3) Pe GitHub: Settings -> Pages -> Source: GitHub Actions
+
+4) Dupa cateva minute: https://USERNAME.github.io/proiect-special/
+
+--- 4) UNDE SCHIMBI TEXTELE ---
+
+components/hero-section.tsx       titlul si dedicatia
+components/building-explorer.tsx  etapele casei si mesajele
+components/blueprint-card.tsx     plansa si intrebarea de pe verso
+lib/notify.ts                     textul notificarii
